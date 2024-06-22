@@ -752,7 +752,7 @@ class Bot(BaseBot):
         elif message.lower() == "-stop following":
             self.following_username = None
           
-            await self.highrise.walk_to(Position(2.5,0.25,4.5,"FrontRight"))
+            await self.highrise.walk_to(Position(11.5,4,8,"FrontRight"))
 
   
      except Exception as e:
