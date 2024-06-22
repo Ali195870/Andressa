@@ -94,13 +94,29 @@ class Bot(BaseBot):
             json.dump(self.moderators, file)
 
   
-    async def announce(self,user_input,message: str):
-      while True:  
-              await asyncio.sleep(6)
-              await self.highrise.chat(user_input)
-              await asyncio.sleep(60)
-              await self.highrise.send_emote('emote-hello')
-  
+    async def announce(self, user_input: str, message: str):
+      while not self.should_stop:  
+          await asyncio.sleep(6)
+          await self.highrise.chat(user_input)
+          await asyncio.sleep(60)
+          await self.highrise.send_emote('emote-hello')
+
+          if message.lower().startswith("-announce "):
+              parts = message.split()
+              if len(parts) >= 3:
+                  user_input = message[len("-announce "):]
+                  await self.announce(user_input, message)
+
+    def stop_announce(self):
+      self.should_stop = True
+      if self.announce_task is not None:
+          self.announce_task.cancel()
+
+    async def start_announce(self, user_input: str, message: str):
+      if self.announce_task is not None:
+          return
+      self.announce_task = asyncio.create_task(self.announce(user_input, message))
+
     async def on_start(self, session_metadata: SessionMetadata) -> None:
       try:
        
@@ -222,15 +238,15 @@ class Bot(BaseBot):
          user_input = None
     
          
-         if message.lower().startswith("-announce "):
-           if user.username.lower() in self.moderators:
-             parts = message.split()
-             if len(parts) >= 3:
-                user_input =  message[len("-announce "):]
-                await self.highrise.chat( "Alright i will loop with with intervals of 60 seconds")
-                await self.announce(user_input,message)
-         if message.lower().startswith("-clear") and user.username.lower() in owners :
-            if user.username.lower() in self.moderators:
+         if message.lower().startswith("-announce ") and user.username.lower() in moderators:
+           parts = message.split()
+           self.should_stop = None
+           if len(parts) >= 3:
+               user_input =  message[len("-announce "):]
+               await self.highrise.chat("Alright i will loop this message with intervals of 60 seconds.")
+               await self.announce(user_input,message)
+         if message.lower().startswith("-clear") :
+            if user.username.lower() in moderators:
                await self.highrise.chat (f"Announcement message cleared")
                self.stop_announce()
                return
@@ -341,7 +357,7 @@ class Bot(BaseBot):
 
         
         
-         if message == "!tip5":
+         if message == "-tip 5":
               if user.username.lower() in owners :
                 roomUsers = (await self.highrise.get_room_users()).content
                 for roomUser, _ in roomUsers:
@@ -349,7 +365,7 @@ class Bot(BaseBot):
               else: 
                 await  self.highrise.send_whisper(user.id, f"Only @Devil_808 can use tip!")
 
-         if message == "!tip1":
+         if message == "-tip 1":
               if user.username.lower() in owners :
                 roomUsers = (await self.highrise.get_room_users()).content
                 for roomUser, _ in roomUsers:
