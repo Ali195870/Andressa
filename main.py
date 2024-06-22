@@ -136,7 +136,7 @@ class Bot(BaseBot):
 
      try:
 
-        await self.highrise.send_whisper(user.id,f"\n ____________________________\nHello {user.username}\nWelcome to Vibe and chill \n• Message or dm or Whisper !list or -list \nto veiw the functions.\n ____________________________\nbot made by @Alionardo_")
+        await self.highrise.send_whisper(user.id,f"\n ____________________________\nHello {user.username}\nWelcome to Vibe and chill \n• type !list or -list \nto veiw the functions.\n ____________________________\nbot made by @Alionardo_")
         await self.highrise.send_emote('emote-salute')
      
      except Exception as e:
@@ -450,7 +450,7 @@ class Bot(BaseBot):
 
          if message.lower().lstrip().startswith(("-list", "!list")):
                 await self.highrise.chat("\\commands you can use:\n• !feedback or -feedback \n• !teleport or -teleport\n• !loop or -loop \n• !emote or -emote\n• -buy or !buy for \n 🎫VIP Tickets🎫 ")
-                await self.highrise.chat(f"\n ____________________________\n• !mod or -mod ( only for mods )")
+                await self.highrise.chat(f"\n ____________________________\n• !admin list or -admin list ( only admins and for mods )")
          if message.lower().lstrip().startswith(("-buy" , "!buy")):
              await self.highrise.chat(f"\n  vip = 100 permeant 🎫 \nTip 100 to bot you will be aceessed to use vip tele commands. ")
         
@@ -467,11 +467,10 @@ class Bot(BaseBot):
             if message.lower().lstrip().startswith(("-admin list","!admin list")):
                await self.highrise.send_whisper(user.id,"\n  \n•Moderating :\n ____________________________\n !kick @ \n !ban @ \n !mute @ \n !unmute @ ")
                await self.highrise.send_whisper(user.id,"\n  \n•Teleporting :\n ____________________________\n-tele @ teleport key .\nTeleport keys :\nvip ,dj ,top ,g (for ground)\n\nExample -tele @username vip \n\n-here @ :to summon.")
-         if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")) and user.username.lower().startswith:
+         if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")):
               await self.userinfo (user, message) 
          if message.lower().startswith('-bar') :
-              await self.highrise.teleport(f"{user.id}", Position(14, 4.25,5))
-            
+              await self.highrise.teleport(f"{user.id}", Position(14, 4.25,5))   
          if message.lower().startswith('-vip') :
            if user.username.lower() in self.moderators or user.username.lower() in self.membership :  
                await self.highrise.teleport(f"{user.id}", Position(12.5, 13.25,8))
