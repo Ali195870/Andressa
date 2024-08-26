@@ -17,7 +17,7 @@ from typing import Any, Dict, Union
 from highrise.__main__ import *
 import asyncio, random
 from emotes import Emotes
-owners = ['alionardo_','prettylilrican787']
+owners = ['alionardo_','andressa']
 
 class BotDefinition:
     
@@ -72,7 +72,7 @@ class Bot(BaseBot):
             self.moderators = []
 
         # Add default moderators here
-        default_moderators = ['Alionardo_']
+        default_moderators = ['Alionardo_','andressa']
         for mod in default_moderators:
             if mod.lower() not in self.moderators:
                 self.moderators.append(mod.lower())
@@ -123,7 +123,7 @@ class Bot(BaseBot):
         Counter.bot_id = session_metadata.user_id
         print("Ali is booting ...")
 
-        await self.highrise.walk_to(Position(11.5, 4,8, facing='FrontRight'))
+        await self.highrise.walk_to(Position(15.5, 0,22.5, facing='FrontLeft'))
         self.load_temporary_vips()
         await asyncio.sleep(6)
         await self.highrise.chat(f"Deployed ")
@@ -136,7 +136,7 @@ class Bot(BaseBot):
 
      try:
 
-        await self.highrise.send_whisper(user.id,f"\n ____________________________\nHello {user.username}\nWelcome to Vibe and chill \n• type !list or -list \nto veiw the functions.\n ____________________________\nbot made by @Alionardo_")
+        await self.highrise.send_whisper(user.id,f"\n ____________________________\nHello {user.username}\nWelcome to Club black \n• type !list or -list \nto veiw the functions.\n ____________________________\nbot made by @Alionardo_")
         await self.highrise.send_emote('emote-salute')
      
      except Exception as e:
@@ -363,7 +363,7 @@ class Bot(BaseBot):
                 for roomUser, _ in roomUsers:
                   await self.highrise.tip_user(roomUser.id, "gold_bar_5")
               else: 
-                await  self.highrise.send_whisper(user.id, f"Only @Devil_808 can use tip!")
+                await  self.highrise.send_whisper(user.id, f"Only @Andressa can use tip!")
 
          if message == "-tip 1":
               if user.username.lower() in owners :
@@ -371,7 +371,15 @@ class Bot(BaseBot):
                 for roomUser, _ in roomUsers:
                   await self.highrise.tip_user(roomUser.id, "gold_bar_1")
               else: 
-                await  self.highrise.send_whisper(user.id, f"Only the @Devil_808 can use tip!")
+                await  self.highrise.send_whisper(user.id, f"Only the @Andressa can use tip!")
+
+          if message == "-tip 10":
+              if user.username.lower() in owners :
+                roomUsers = (await self.highrise.get_room_users()).content
+                for roomUser, _ in roomUsers:
+                  await self.highrise.tip_user(roomUser.id, "gold_bar_10")
+              else: 
+                await  self.highrise.send_whisper(user.id, f"Only the @Andressa can use tip!")
 
          if message.lstrip().startswith(("-give","-remove","-here","-tele")):
             response = await self.highrise.get_room_users()
@@ -401,7 +409,7 @@ class Bot(BaseBot):
                      if user_name.lower() not in self.membership:
                         self.membership[user_name] = int(time.time()) + 24 * 60 * 60 * 360 * 68
                         self.save_membership()
-                        await self.highrise.chat(f"Congratulations! {user_name}you been given a \n🎫 Perm vip ticket 🎫 \n ____________________________\nUse the key -vip  to teleport")
+                        await self.highrise.chat(f"Congratulations! {user_name}you been given a \n🎫 vip ticket 🎫 \n ____________________________\nUse the key -vip  to teleport")
 
                 elif message.lower().startswith("-give") and message.lower().endswith("mod"):   
                   if user.username.lower() in owners :
@@ -426,18 +434,18 @@ class Bot(BaseBot):
                       target_username = user_name
                       if target_username not in owners :
                           await self.teleport_user_next_to(target_username, user)
-                elif message.lower().startswith(('-tele')) and  message.lower().endswith("bar"):   
+                elif message.lower().startswith(('-tele')) and  message.lower().endswith("f1"):   
                   if user.username.lower() in self.moderators:
-                    await self.highrise.teleport(user_id, Position(14, 4.25,5))
+                    await self.highrise.teleport(user_id, Position(15, 16.5,23.5))
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("vip"):   
                   if user.username.lower() in self.moderators:
-                    await self.highrise.teleport(user_id, Position(12.5, 13.25,8))
+                    await self.highrise.teleport(user_id, Position(15, 14.25,3))
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("dj"):   
                   if user.username.lower() in self.moderators:
-                    await self.highrise.teleport(user_id, Position(14.5,10.75,25))
+                    await self.highrise.teleport(user_id, Position(9,14.25,1.5))
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("g"):   
                   if user.username.lower() in self.moderators:
-                     await self.highrise.teleport(user_id, Position(10.5,1.5,16.5))
+                     await self.highrise.teleport(user_id, Position(3.5,0,6.5))
               
             except Exception as e:
                 print(f"{e}")
@@ -452,35 +460,30 @@ class Bot(BaseBot):
                 await self.highrise.chat("\\commands you can use:\n• !feedback or -feedback \n• !teleport or -teleport\n• !loop or -loop \n• !emote or -emote\n• -buy or !buy for \n 🎫VIP Tickets🎫 ")
                 await self.highrise.chat(f"\n ____________________________\n• !admin list or -admin list ( only admins and for mods )")
          if message.lower().lstrip().startswith(("-buy" , "!buy")):
-             await self.highrise.chat(f"\n  vip = 100 permeant 🎫 \nTip 100 to bot you will be aceessed to use vip tele commands. ")
+             await self.highrise.chat(f"\n  vip = 50 🎫 \nTip 50 to bot you will be aceessed to use vip tele commands. ")
         
      
          if message.lower().lstrip().startswith(("-teleport", "!teleport")):
-                    await self.highrise.chat(f"\n • Teleports\n ____________________________\nGround floor : -g  \n-bar : bar floor \n-dj : (only mods)\n-top : (only mods)\n-vip : (vip only), make sure you have 🎫VIP Tickets 🎫 \n• type -buy or !buy for details ")
-         if message.lower().lstrip().startswith(("!rules", "-rules")):
-               await self.highrise.chat(f"\n\n        RULES\n ____________________________\n 1. NO UNDERAGE \n 2. No advertising\n 3. No hate speech \n 4. No begging (those trash will be immediately banned 🚫) \n 5. No spamming ")
-         if message.lower().lstrip().startswith(("-feedback", "!feedback")):
-                    await self.highrise.send_whisper(user.id, "• [ Submit Feedback ]\\Thank you for joining our room! \n We value your feedback,")
-                    await self.highrise.send_whisper(user.id,"Please share your feedback/suggestions with @x_softangel_x to improve our environment. Your contributions are valuable and will help us improve.")  
-
+                    await self.highrise.chat(f"\n • Teleports\n ____________________________\nGround floor : -g  \n-f1 : bar floor \n-dj : for DJ \n-vip : (vip only),\n• type -buy or !buy for details ")
+       
          if user.username.lower() in self.moderators:
             if message.lower().lstrip().startswith(("-admin list","!admin list")):
                await self.highrise.send_whisper(user.id,"\n  \n•Moderating :\n ____________________________\n !kick @ \n !ban @ \n !mute @ \n !unmute @ ")
                await self.highrise.send_whisper(user.id,"\n  \n•Teleporting :\n ____________________________\n-tele @ teleport key .\nTeleport keys :\nvip ,dj ,top ,g (for ground)\n\nExample -tele @username vip \n\n-here @ :to summon.")
          if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")):
               await self.userinfo (user, message) 
-         if message.lower().startswith('-bar') :
-              await self.highrise.teleport(f"{user.id}", Position(14, 4.25,5))   
+         if message.lower().startswith('-f1') :
+              await self.highrise.teleport(f"{user.id}", Position(15, 16.5,23.5))   
          if message.lower().startswith('-vip') :
            if user.username.lower() in self.moderators or user.username.lower() in self.membership :  
-               await self.highrise.teleport(f"{user.id}", Position(12.5, 13.25,8))
+               await self.highrise.teleport(f"{user.id}", Position(15, 14.25,3))
            else:
              await self.highrise.send_whisper((user.id)," this is a privet place for VIPs , uou can use it by purchaseing VIP Ticket type -buy")
          if message.lower().startswith('-dj') :
             if user.username.lower() in self.moderators:    
-              await self.highrise.teleport(f"{user.id}", Position(14.5,10.75,25))
+              await self.highrise.teleport(f"{user.id}", Position(9,14.25,1.5))
          if message == "-g" or message == "-g ":
-              await self.highrise.teleport(f"{user.id}", Position(10.5,1.5,16.5))
+              await self.highrise.teleport(f"{user.id}", Position(3.5,0,6.5))
            
          if message.lower().startswith("loop"):
            parts = message.split()
@@ -514,7 +517,7 @@ class Bot(BaseBot):
               emote_text, emote_time = await self.get_emote_E(E)    
               tasks = [asyncio.create_task(self.highrise.send_emote(emote_text, user.id))]
               await asyncio.wait(tasks)  
-         if message.startswith("/e1"):
+         if message.startswith("-fit"):
                  await self.highrise.set_outfit(outfit=[
           Item(type='clothing', 
                     amount=1, 
@@ -760,18 +763,17 @@ class Bot(BaseBot):
               
     async def on_tip(self, sender: User, receiver: User, tip: CurrencyItem) -> None:
         try:
-            print(f"{sender.username} tipped {receiver.username} an amount of {tip.amount}")
-            await self.highrise.chat(f"𝓣𝓱𝓮 𝓐𝓶𝓪𝔃𝓲𝓷𝓰 {sender.username} 𝓽𝓲𝓹𝓹𝓮𝓭 {receiver.username} 𝓪𝓷 𝓪𝓶𝓸𝓾𝓷𝓽 𝓸𝓯  {tip.amount}𝐆𝐎𝐋𝐃")
+            print(f"{sender.username} tipped {receiver.username} an amount of {tip.amount}"
 
             
        
-            if tip.amount == 100:
+            if tip.amount == 50:
               if receiver.id== Counter.bot_id:    
                  sender_username = sender.username.lower()
                  if sender_username not in self.membership:
-                   self.membership[sender_username] = int(time.time()) + 24 * 60 * 60* 360 *68
+                   self.membership[sender_username] = int(time.time()) + 24 * 60 
                    self.save_membership()
-                   await self.highrise.chat(f"Thank you {sender_username} for purchasing PEARMEANT vip ticket , now u can use the command -vip to teleport to the vip now \n-vip: to go vip place🎫 . \n-g:ground floor") 
+                   await self.highrise.chat(f"Thank you {sender_username} for purchasing Party vip ticket , now u can use the command -vip to teleport to the vip now \n-vip: to go vip place🎫 . \n-g:ground floor") 
 
                  
         except Exception as e:
