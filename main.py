@@ -762,10 +762,7 @@ class Bot(BaseBot):
              print(f"An exception occured: {e}")
               
     async def on_tip(self, sender: User, receiver: User, tip: CurrencyItem) -> None:
-        try:
-            print(f"{sender.username} tipped {receiver.username} an amount of {tip.amount}"
-
-            
+        try:  
        
             if tip.amount == 50:
               if receiver.id== Counter.bot_id:    
