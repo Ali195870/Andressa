@@ -373,7 +373,7 @@ class Bot(BaseBot):
               else: 
                 await  self.highrise.send_whisper(user.id, f"Only the @Andressa can use tip!")
 
-          if message == "-tip 10":
+         if message == "-tip 10":
               if user.username.lower() in owners :
                 roomUsers = (await self.highrise.get_room_users()).content
                 for roomUser, _ in roomUsers:
@@ -755,7 +755,7 @@ class Bot(BaseBot):
         elif message.lower() == "-stop following":
             self.following_username = None
           
-            await self.highrise.walk_to(Position(11.5,4,8,"FrontRight"))
+            await self.highrise.walk_to(Position(15.5, 0,22.5, facing='FrontLeft'))
 
   
      except Exception as e:
