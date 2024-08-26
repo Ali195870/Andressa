@@ -436,7 +436,7 @@ class Bot(BaseBot):
                           await self.teleport_user_next_to(target_username, user)
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("f1"):   
                   if user.username.lower() in self.moderators:
-                    await self.highrise.teleport(user_id, Position(15, 4.5,23.5))
+                    await self.highrise.teleport(user_id, Position(15, 6.5,23.5))
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("vip"):   
                   if user.username.lower() in self.moderators:
                     await self.highrise.teleport(user_id, Position(15, 14.25,3))
@@ -470,7 +470,7 @@ class Bot(BaseBot):
          if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")):
               await self.userinfo (user, message) 
          if message.lower().startswith('-f1') :
-              await self.highrise.teleport(f"{user.id}", Position(15, 4.5,23.5))   
+              await self.highrise.teleport(f"{user.id}", Position(15, 6.5,23.5))   
          if message.lower().startswith('-vip') :
            if user.username.lower() in self.moderators or user.username.lower() in self.membership :  
                await self.highrise.teleport(f"{user.id}", Position(15, 14.25,3))
