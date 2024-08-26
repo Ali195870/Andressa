@@ -238,7 +238,7 @@ class Bot(BaseBot):
          user_input = None
     
          
-         if message.lower().startswith("-announce ") and user.username.lower() in moderators:
+         if message.lower().startswith("-announce") and user.username.lower() in self.moderators:
            parts = message.split()
            self.should_stop = None
            if len(parts) >= 3:
@@ -436,7 +436,7 @@ class Bot(BaseBot):
                           await self.teleport_user_next_to(target_username, user)
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("f1"):   
                   if user.username.lower() in self.moderators:
-                    await self.highrise.teleport(user_id, Position(15, 16.5,23.5))
+                    await self.highrise.teleport(user_id, Position(15, 4.5,23.5))
                 elif message.lower().startswith(('-tele')) and  message.lower().endswith("vip"):   
                   if user.username.lower() in self.moderators:
                     await self.highrise.teleport(user_id, Position(15, 14.25,3))
@@ -451,16 +451,13 @@ class Bot(BaseBot):
                 print(f"{e}")
          if message.lower().lstrip().startswith(("-emote", "!emote")):
                 await self.highrise.send_whisper(user.id, "\n• Emote can be used by NUMBERS")
-                await self.highrise.send_whisper(user.id, "\n• For loops say -loop or !loop")         
-         if message.lower().lstrip().startswith(("!loop","-loop")):
-            await self.highrise.send_whisper(user.id,"\n• loops\n ____________________________\nMention loop before the emote numer\n ____________________________")
-            await self.highrise.send_whisper(user.id,"I have sent you details in private chat.")  
-
+                await self.highrise.send_whisper(user.id, "\n• For loops say -loop or !loop\n-stop loop to stop emoting.")         
+        
          if message.lower().lstrip().startswith(("-list", "!list")):
-                await self.highrise.chat("\\commands you can use:\n• !feedback or -feedback \n• !teleport or -teleport\n• !loop or -loop \n• !emote or -emote\n• -buy or !buy for \n 🎫VIP Tickets🎫 ")
+                await self.highrise.chat("\\commands you can use: \n• !teleport or -teleport\n• !emote or -emote\n• -buy or !buy for \n 🎫VIP Tickets🎫\n• -admin list or !admin list (only mods)")
                 await self.highrise.chat(f"\n ____________________________\n• !admin list or -admin list ( only admins and for mods )")
          if message.lower().lstrip().startswith(("-buy" , "!buy")):
-             await self.highrise.chat(f"\n  vip = 50 🎫 \nTip 50 to bot you will be aceessed to use vip tele commands. ")
+             await self.highrise.chat(f"\n  vip = 50 🎫 \nTip 50 to bot you will be aceessed to use vip tele commands.")
         
      
          if message.lower().lstrip().startswith(("-teleport", "!teleport")):
@@ -473,7 +470,7 @@ class Bot(BaseBot):
          if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")):
               await self.userinfo (user, message) 
          if message.lower().startswith('-f1') :
-              await self.highrise.teleport(f"{user.id}", Position(15, 16.5,23.5))   
+              await self.highrise.teleport(f"{user.id}", Position(15, 4.5,23.5))   
          if message.lower().startswith('-vip') :
            if user.username.lower() in self.moderators or user.username.lower() in self.membership :  
                await self.highrise.teleport(f"{user.id}", Position(15, 14.25,3))
@@ -485,7 +482,7 @@ class Bot(BaseBot):
          if message == "-g" or message == "-g ":
               await self.highrise.teleport(f"{user.id}", Position(3.5,0,6.5))
            
-         if message.lower().startswith("loop"):
+         if message.lower().startswith("-loop"):
            parts = message.split()
            E = parts[1]
            E = int(E)
@@ -500,7 +497,7 @@ class Bot(BaseBot):
               task = asyncio.create_task(self.send_continuous_emote(emote_text,user_id,emote_time))
               self.continuous_emote_tasks[user.id] = task  
 
-         elif message.lower().startswith("stop"):
+         elif message.lower().startswith("-stop"):
             if user.id in self.continuous_emote_tasks and not self.continuous_emote_tasks[user.id].cancelled():
                 await self.stop_continuous_emote(user.id)
                 await self.highrise.chat("Continuous emote has been stopped.")
