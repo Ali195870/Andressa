@@ -17,7 +17,7 @@ from typing import Any, Dict, Union
 from highrise.__main__ import *
 import asyncio, random
 from emotes import Emotes
-owners = ['alionardo_','andressa']
+owners = ['alionardo_','auroramd']
 
 class BotDefinition:
     
@@ -72,7 +72,7 @@ class Bot(BaseBot):
             self.moderators = []
 
         # Add default moderators here
-        default_moderators = ['Alionardo_','andressa']
+        default_moderators = ['Alionardo_','auroramd']
         for mod in default_moderators:
             if mod.lower() not in self.moderators:
                 self.moderators.append(mod.lower())
@@ -363,7 +363,7 @@ class Bot(BaseBot):
                 for roomUser, _ in roomUsers:
                   await self.highrise.tip_user(roomUser.id, "gold_bar_5")
               else: 
-                await  self.highrise.send_whisper(user.id, f"Only @Andressa can use tip!")
+                await  self.highrise.send_whisper(user.id, f"Only @auroramd can use tip!")
 
          if message == "-tip 1":
               if user.username.lower() in owners :
@@ -371,7 +371,7 @@ class Bot(BaseBot):
                 for roomUser, _ in roomUsers:
                   await self.highrise.tip_user(roomUser.id, "gold_bar_1")
               else: 
-                await  self.highrise.send_whisper(user.id, f"Only the @Andressa can use tip!")
+                await  self.highrise.send_whisper(user.id, f"Only @auroramd can use tip!")
 
          if message == "-tip 10":
               if user.username.lower() in owners :
@@ -379,7 +379,7 @@ class Bot(BaseBot):
                 for roomUser, _ in roomUsers:
                   await self.highrise.tip_user(roomUser.id, "gold_bar_10")
               else: 
-                await  self.highrise.send_whisper(user.id, f"Only the @Andressa can use tip!")
+                await  self.highrise.send_whisper(user.id, f"Only @Aauroramd can use tip!")
 
          if message.lstrip().startswith(("-give","-remove","-here","-tele")):
             response = await self.highrise.get_room_users()
@@ -455,18 +455,17 @@ class Bot(BaseBot):
         
          if message.lower().lstrip().startswith(("-list", "!list")):
                 await self.highrise.chat("\\commands you can use: \n• !teleport or -teleport\n• !emote or -emote\n• -buy or !buy for \n 🎫VIP Tickets🎫\n• -admin list or !admin list (only mods)")
-                await self.highrise.chat(f"\n ____________________________\n• !admin list or -admin list ( only admins and for mods )")
          if message.lower().lstrip().startswith(("-buy" , "!buy")):
              await self.highrise.chat(f"\n  vip = 50 🎫 \nTip 50 to bot you will be aceessed to use vip tele commands.")
         
      
          if message.lower().lstrip().startswith(("-teleport", "!teleport")):
-                    await self.highrise.chat(f"\n • Teleports\n ____________________________\nGround floor : -g  \n-f1 : bar floor \n-dj : for DJ \n-vip : (vip only),\n• type -buy or !buy for details ")
+                    await self.highrise.chat(f"\n • Teleports\n ____________________________\nGround floor : -g  \n-f1 : first floor floor \n-dj : for DJ \n-vip : (vip only),\n• type -buy or !buy for details ")
        
          if user.username.lower() in self.moderators:
             if message.lower().lstrip().startswith(("-admin list","!admin list")):
                await self.highrise.send_whisper(user.id,"\n  \n•Moderating :\n ____________________________\n !kick @ \n !ban @ \n !mute @ \n !unmute @ ")
-               await self.highrise.send_whisper(user.id,"\n  \n•Teleporting :\n ____________________________\n-tele @ teleport key .\nTeleport keys :\nvip ,dj ,top ,g (for ground)\n\nExample -tele @username vip \n\n-here @ :to summon.")
+               await self.highrise.send_whisper(user.id,"\n  \n•Teleporting :\n ____________________________\n-tele @ teleport key .\nTeleport keys :\nvip ,dj ,f1 ,g (for ground)\n\nExample -tele @username vip \n\n-here @ :to summon.")
          if message.lstrip().startswith(("!prof","-prof", "!profile", "-profile")):
               await self.userinfo (user, message) 
          if message.lower().startswith('-f1') :
